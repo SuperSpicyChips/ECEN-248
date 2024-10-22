@@ -1,1 +1,8 @@
+`timescale 1ns/1ps
 
+module full_adder(S, Cout, A, B, Cin)
+
+  output wire S, Cout;
+  input wire A, B, Cin;
+
+  
