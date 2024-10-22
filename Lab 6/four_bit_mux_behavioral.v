@@ -1,7 +1,5 @@
 `timescale 1ns / 1ps
 
-
-
 module four_bit_mux(Y, A, B, S);
 //Defining intput and outputs
     output reg [3:0]Y; //4 bit output
