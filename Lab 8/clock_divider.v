@@ -14,6 +14,9 @@ module clock_divider(ClkOut, ClkIn);
         Count <= Count + 1; //
     
     assign ClkOut[3:0] = Count[n:n-3];
-    
+
+    initial begin
+        Count <= 0;
+    end
  
 endmodule
