@@ -6,7 +6,7 @@ module clock_divider(ClkOut, ClkIn);
     output wire [3:0] ClkOut; //4 bit output
     input wire ClkIn; //1 bit input
     
-    parameter n = 25; //Makes Count 6 bits
+    parameter n = 25; //Makes Count 26 bits
     
     reg [n:0] Count; //Count bit is based on N parameter
     
