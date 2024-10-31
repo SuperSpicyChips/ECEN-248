@@ -23,6 +23,6 @@ set_property PACKAGE_PIN D18 [get_ports {LEDs[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {LEDs[3]}]
 
 ##Clock Signal
-set_property PACKAGE_PIN L16 [get_ports FastClk]
+set_property PACKAGE_PIN K17 [get_ports FastClk]
 set_property IOSTANDARD LVCMOS33 [get_ports FastClk]
 create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports FastClk]
