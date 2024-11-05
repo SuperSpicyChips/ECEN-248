@@ -7,7 +7,7 @@ module carry_lookahead_unit(C, G, P, C0);
     input wire [3:0]G, P; //4 bit 
     input wire C0; //carry input
     
-    //2ns delay per gate
+    
     assign C[1] = G[0] | P[0]&C0;
     assign C[2] = G[1] | P[1]&G[0] | C0&P[0]&P[1];
     assign C[3] = G[2] | P[2]&G[1] | G[0]&P[1]&P[2] | C0&P[0]&P[1]&P[2];

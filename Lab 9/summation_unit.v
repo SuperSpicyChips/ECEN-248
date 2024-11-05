@@ -4,9 +4,8 @@
 module summation_unit(S, P, C);
 
     //Instantiate input and output
-    output wire[3:0]S; //Sum
-    input wire [3:0]P, C;// propogate and carry
+    output wire[15:0]S; //Sum 16 bit
+    input wire [15:0]P, C;// propogate and carry 16 bit
     
-    //2ns delay for gate
-    assign #2 S = P^C; //P xor C
+    assign S = P^C; //P xor C
 endmodule
