@@ -23,24 +23,28 @@ module combination_lock_fsm(
     always @(*) //Always
         case(state)
             S0:begin //State 0
-               if (Password == 4'b1101 && Key0) //If password is 13 and button 1 is being pressed
-                   nextState = S1; //Go to next state
-               else
-                   nextState = S0; //Stay at same state
+                if (Password == 4'b1101 && Key1) //If password is 13 and button 1 is being pressed
+                    nextState = S1; //Go to next state
+                else if (password != 4'b1101 && Key1)
+                    nextState = S0;
+                else
+                    nextState = S0; //Reset
                end
             S1:begin  //State 1
-                if (Key2) //IF Key 2 is being pressed
-                    if (Password == 4'b0111) //if correct password then go next
-                        nextState = S2;
-                    else
-                        nextState = S0;  //else if wrong then reset
+                if (Password == 4'b0111 && Key2) //If password is 13 and button 1 is being pressed
+                    nextState = S2; //Go to next state
+                else if (password != 4'b1101 && Key2)
+                    nextState = S1; //If password wrong but key right then stay
+                else
+                    nextState = S0; //Reset
                 end
             S2:begin //state 2
-                if (Key1) //If key 1 is being pressed
-                    if (Password == 4'b1001) //If correct password
-                        nextState = S3; //Go next
-                    else
-                        nextState = S0; //else reset
+                if (Password == 4'b0111 && Key2) //If password is 13 and button 1 is being pressed
+                    nextState = S3; //Go to next state
+                else if (password != 4'b1101 && Key2)
+                    nextState = S2; //If password wrong but key right then stay
+                else
+                    nextState = S0; //Reset
                 end
             S3:begin //State 3
                 if(Reset == 1)
@@ -51,12 +55,12 @@ module combination_lock_fsm(
          endcase
          
      always@(posedge Clk) //Whenever at Clk = 1
-        if(Reset)
+         if(Reset == 1)
             state <= S0;  //If reset then State = S0
         else
             state <= nextState; //Else state = nextState
             
-     assign Lock = (state == S3) ? 4'b1111 : 4'b0000; //If state = S3 lock = 1111 else lock = 0000
+    assign Lock = (state == S3) ? 4'b1111 : (state == S2) ? 4'b0111 : (state == S1) ? 4'b0011 : 4'b0001; //
             
 endmodule
 
