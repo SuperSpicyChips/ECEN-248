@@ -25,7 +25,7 @@ module combination_lock_fsm(
             S0:begin //State 0
                 if (Password == 4'b1101 && Key1) //If password is 13 and button 1 is being pressed
                     nextState = S1; //Go to next state
-                else if (password != 4'b1101 && Key1)
+                else if (Password != 4'b1101 && Key1)
                     nextState = S0;
                 else
                     nextState = S0; //Reset
@@ -33,7 +33,7 @@ module combination_lock_fsm(
             S1:begin  //State 1
                 if (Password == 4'b0111 && Key2) //If password is 13 and button 1 is being pressed
                     nextState = S2; //Go to next state
-                else if (password != 4'b1101 && Key2)
+                else if (Password != 4'b1101 && Key2)
                     nextState = S1; //If password wrong but key right then stay
                 else
                     nextState = S0; //Reset
@@ -41,7 +41,7 @@ module combination_lock_fsm(
             S2:begin //state 2
                 if (Password == 4'b0111 && Key2) //If password is 13 and button 1 is being pressed
                     nextState = S3; //Go to next state
-                else if (password != 4'b1101 && Key2)
+                else if (Password != 4'b1101 && Key2)
                     nextState = S2; //If password wrong but key right then stay
                 else
                     nextState = S0; //Reset
