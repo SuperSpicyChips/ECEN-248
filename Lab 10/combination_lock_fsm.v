@@ -22,14 +22,14 @@ module combination_lock_fsm(
     
     always @(*) //Always
         if (Reset)
-            nextState = S0;
+            nextState = S0; //If reset is ever pressed it goes to S0
         else
         case(state)
             S0:begin //State 0
                 if (Key1 == 1'b1 && Password == 4'b1101) //If password is 13 and button 1 is being pressed
                     nextState = S1; //Go to next state
                 else if (Key1 == 1'b1 && Password != 4'b1101)
-                    nextState = S0;
+                    nextState = S0; //reset
                 else
                     nextState = S0; //Reset
                 end
@@ -37,20 +37,20 @@ module combination_lock_fsm(
                 if (Key2 == 1'b1 && Password == 4'b0111) //If password is 7 and button 2 is being pressed
                     nextState = S2; //Go to next state
                 else if (Password != 4'b0111 && Key2 == 1'b1)
-                    nextState = S0; //If password wrong but key right then stay
+                    nextState = S0; //Reset
                 else
-                    nextState = S1; //Reset
+                    nextState = S1; //Stay
                 end
             S2:begin //state 2
                 if (Key1 == 1'b1 && Password == 4'b1001) //If password is 13 and button 1 is being pressed
                     nextState = S3; //Go to next state
                 else if (Password != 4'b1001 && Key1 == 1'b1)
-                    nextState = S0; //If password wrong but key right then stay
+                    nextState = S0; //Reset
                 else
-                    nextState = S2; //Reset
+                    nextState = S2; //Stay
                 end
             S3:begin //State 3
-                nextState = S3;
+                nextState = S3; // set to S3
             end
          endcase
          
