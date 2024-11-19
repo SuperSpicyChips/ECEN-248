@@ -63,6 +63,6 @@ module combination_lock_fsm(
         else
             state <= nextState; //Else state = nextState
             
-    assign Lock = (state == S3) ? 4'b1111 : (state == S2) ? 4'b0111 : (state == S1) ? 4'b0011 : 4'b0001; //
+    assign Lock = (state == S3) ? 4'b1111 : (state == S2) ? 4'b0111 : (state == S1) ? 4'b0011 : (state == S0) ? 4'b0001 : 4'b0000; //
             
 endmodule
