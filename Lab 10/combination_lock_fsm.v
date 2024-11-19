@@ -59,9 +59,9 @@ module combination_lock_fsm(
          
      always@(posedge Clk) //Whenever at Clk = 1
          if(Reset)
-            state = S0;  //If reset then State = S0
+            state <= S0;  //If reset then State = S0
         else
-            state = nextState; //Else state = nextState
+            state <= nextState; //Else state = nextState
             
     assign Lock = (state == S3) ? 4'b1111 : (state == S2) ? 4'b0111 : (state == S1) ? 4'b0011 : 4'b0001; //
             
