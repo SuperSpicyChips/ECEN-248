@@ -1,5 +1,9 @@
 `timescale 1ns / 1ps
 
+`define onesec 50000000 
+`define threesec 150000000
+`define fifteensec 750000000
+`define thirtysec 1500000000
 
 module tlc_fsm(
     //instantiate inputs and outputs
@@ -24,14 +28,14 @@ module tlc_fsm(
     always@(*)
         case(state)
             S0: begin //State 0
-                if (Count == 50000000) //if at 1 second
+                if (Count == `onesec) //if at 1 second
                 begin //If right count then next color
-                    highwaySignal = 2'b11; //red
+                    highwaySignal = 2'b11; //green
                     farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S1; //Moves to state 1
                 end
-                else begin
+                else begin //Dont change
                     highwaySignal = 2'b01;
                     farmSignal = 2'b01;
                     RstCount = 0;
@@ -39,12 +43,12 @@ module tlc_fsm(
                 end
             end
             S1: begin //State 1
-                if (Count == 1500000000) //if at 30 second
+                if (Count == `thirtysec) //if at 30 second
                 begin
-                    highwaySignal = 2'b10; //green
+                    highwaySignal = 2'b10; //yellow
                     farmSignal = 2'b01; //red
                     RstCount = 1;
-                    nextState = S2; //Moves to state 1
+                    nextState = S2; //Moves to state 2
                 end
                 else begin
                     highwaySignal = 2'b11;
@@ -54,12 +58,12 @@ module tlc_fsm(
                 end
             end
             S2: begin //State 2
-                if (Count == 150000000) //if at 3 second
+                if (Count == `threesec) //if at 3 second
                 begin
-                    highwaySignal = 2'b10; //yellow
+                    highwaySignal = 2'b01; //red
                     farmSignal = 2'b01; //red
                     RstCount = 1;
-                    nextState = S3; //Moves to state 1
+                    nextState = S3; //Moves to state 3
                 end
                 else begin
                     highwaySignal = 2'b01;
@@ -69,12 +73,12 @@ module tlc_fsm(
                 end
             end
             S3: begin //State 3
-                if (Count == 50000000) //if at 1 second
+                if (Count == `onesec) //if at 1 second
                 begin
                     highwaySignal = 2'b01; //red
-                    farmSignal = 2'b11; //red
+                    farmSignal = 2'b11; //green
                     RstCount = 1;
-                    nextState = S4; //Moves to state 1
+                    nextState = S4; //Moves to state 4
                 end
                 else begin
                     highwaySignal = 2'b11;
@@ -84,12 +88,12 @@ module tlc_fsm(
                 end
             end
             S4: begin //State 4
-                if (Count == 750000000) //if at 15 second
+                if (Count == `fifteensec) //if at 15 second
                 begin
                     highwaySignal = 2'b01; //red
-                    farmSignal = 2'b10; //green
+                    farmSignal = 2'b10; //yellow
                     RstCount = 1;
-                    nextState = S5; //Moves to state 1
+                    nextState = S5; //Moves to state 5
                 end
                 else begin
                     highwaySignal = 2'b01;
@@ -99,10 +103,10 @@ module tlc_fsm(
                 end
             end
             S5: begin //State 5
-                if (Count == 150000000) //if at 3 second
+                if (Count == `threesec) //if at 3 second
                 begin
                     highwaySignal = 2'b01; //red
-                    farmSignal = 2'b01; //yellow
+                    farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S0; //Moves to state 1
                 end
