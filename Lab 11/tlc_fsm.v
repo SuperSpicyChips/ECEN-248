@@ -30,8 +30,6 @@ module tlc_fsm(
             S0: begin //State 0
                 if (Count == `onesec) //if at 1 second
                 begin //If right count then next color
-                    highwaySignal = 2'b11; //green
-                    farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S1; //Moves to state 1
                 end
@@ -45,8 +43,6 @@ module tlc_fsm(
             S1: begin //State 1
                 if (Count == `thirtysec) //if at 30 second
                 begin
-                    highwaySignal = 2'b10; //yellow
-                    farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S2; //Moves to state 2
                 end
@@ -60,8 +56,6 @@ module tlc_fsm(
             S2: begin //State 2
                 if (Count == `threesec) //if at 3 second
                 begin
-                    highwaySignal = 2'b01; //red
-                    farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S3; //Moves to state 3
                 end
@@ -75,8 +69,6 @@ module tlc_fsm(
             S3: begin //State 3
                 if (Count == `onesec) //if at 1 second
                 begin
-                    highwaySignal = 2'b01; //red
-                    farmSignal = 2'b11; //green
                     RstCount = 1;
                     nextState = S4; //Moves to state 4
                 end
@@ -90,8 +82,6 @@ module tlc_fsm(
             S4: begin //State 4
                 if (Count == `fifteensec) //if at 15 second
                 begin
-                    highwaySignal = 2'b01; //red
-                    farmSignal = 2'b10; //yellow
                     RstCount = 1;
                     nextState = S5; //Moves to state 5
                 end
@@ -105,8 +95,6 @@ module tlc_fsm(
             S5: begin //State 5
                 if (Count == `threesec) //if at 3 second
                 begin
-                    highwaySignal = 2'b01; //red
-                    farmSignal = 2'b01; //red
                     RstCount = 1;
                     nextState = S0; //Moves to state 1
                 end
@@ -120,8 +108,8 @@ module tlc_fsm(
         endcase
     always@(posedge Clk)
         if(Rst)
-            state <= S0;
+            state = S0;
         else
-            state <= nextState;
+            state = nextState;
               
 endmodule
