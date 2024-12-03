@@ -11,7 +11,7 @@ module tlc_fsm(
     output reg RstCount,
     output reg [1:0] highwaySignal, farmSignal,
     input wire [30:0] Count,
-    input wire Clk, Rst
+    input wire Clk, Rst, farmSensor
     );
     
     //Parameters
@@ -41,12 +41,12 @@ module tlc_fsm(
                 end
             end
             S1: begin //State 1
-                if (Count == `thirtysec) //if at 30 second
+                if ((Count >= `thirtysec)&&(farmSensor)) //If it has been 30 seconds and farm sensor is detected it will change 
                 begin
                     RstCount = 1;
                     nextState = S2; //Moves to state 2
                 end
-                else begin
+                else begin                              //if farm sensor is pressed, then it will stay green forever
                     highwaySignal = 2'b11;
                     farmSignal = 2'b01;
                     RstCount = 0;
@@ -80,8 +80,8 @@ module tlc_fsm(
                 end
             end
             S4: begin //State 4
-                if (Count == `fifteensec) //if at 15 second
-                begin
+                if ((Count == `fifteensec)||(!farmSensor)&&(Count >= `threesec)) //If farm sensor isn't on, then it will change after 3 seconds
+                begin                                                            // if farm sensor is on then it will change after 15 seconds
                     RstCount = 1;
                     nextState = S5; //Moves to state 5
                 end
