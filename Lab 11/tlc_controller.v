@@ -12,6 +12,7 @@ module tlc_controller(
     
     //intermediate nets\
     wire RstSync;
+    wire SensorSync
     wire RstCount;
     reg [30:0] Count;
     
@@ -19,6 +20,7 @@ module tlc_controller(
     
     //synchronize button inputs
     synchronizer syncRst(RstSync, Rst, Clk);
+    synchronizer syncSensor(SensorSync, farmSensor, Clk);
     
     //instantiate FSM
     tlc_fsm FSM(
